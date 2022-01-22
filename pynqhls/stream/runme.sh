@@ -24,11 +24,11 @@ function patch_tcl()
 	eval $cmd
 	head -n 30 $1
 }
-
+[[ ! -f /usr/bin/faketime ]] && sudo apt install -y faketime
 get_latest_vivado_ver
 patch_tcl stream.tcl
 cmds=("source $vivado_dir/$latest_ver/settings64.sh")
-cmds+=("make")
+cmds+=("faketime 2020-1-1 make")
 for cmd in "${cmds[@]}"; do
 	echo "$cmd"
 	$cmd
