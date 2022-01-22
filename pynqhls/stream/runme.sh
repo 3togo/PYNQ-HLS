@@ -10,7 +10,7 @@ function get_vivado_dir()
 
 function get_latest_vivado_ver() {
 	get_vivado_dir
-	vers="$(ls -r $vivado_dir)"
+	vers="$(ls  $vivado_dir)"
 	vers=(${vers[@]})
 	[[ "${#vers[@]}" -eq "0" ]] && "vivado dir cannot be found" && exit
 	latest_ver="${vers[0]}"
