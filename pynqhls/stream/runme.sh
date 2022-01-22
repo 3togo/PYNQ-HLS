@@ -8,7 +8,7 @@ function get_vivado_dir()
 	[[ ! -d $vivado_dir ]] && echo "vivado dir cannot be found!" && exit 
 }
 
-function get_lastest_vivado_ver() {
+function get_latest_vivado_ver() {
 	get_vivado_dir
 	vers="$(ls -r $vivado_dir)"
 	vers=(${vers[@]})
@@ -18,17 +18,17 @@ function get_lastest_vivado_ver() {
 
 function patch_tcl()
 {
-	get_lastest_vivado_ver
+	get_latest_vivado_ver
 	cmd="sed -i 's|set scripts_vivado_version .*|set scripts_vivado_version $latest_ver|' $1|head -n 30"
 	echo $cmd
 	eval $cmd
 	head -n 30 $1
 }
 [[ ! -f /usr/bin/faketime ]] && sudo apt install -y faketime
-get_latest_vivado_ver
+
 patch_tcl stream.tcl
 cmds=("source $vivado_dir/$latest_ver/settings64.sh")
-cmds+=("faketime 2020-1-1 make")
+cmds+=("faketime 2021-01-01 make")
 for cmd in "${cmds[@]}"; do
 	echo "$cmd"
 	$cmd
